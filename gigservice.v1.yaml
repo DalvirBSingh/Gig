@@ -7,7 +7,7 @@ servers:
 paths:
   api/v1/events:
     get:
-      summary: Events
+      summary: Get All Events
       tags: []
       responses: {}
       operationId: 'get-https:-gigservice.herokuapp.com-api-v1-events'
@@ -19,41 +19,42 @@ paths:
               type: object
               properties: {}
             examples:
-              Response Example:
+              Example Response:
                 value:
-                  - title: Party 2
+                  - event: '2'
+                    title: Party 2
                     description: Come party yall
-                    date: null
+                    date: date
+                    image: imageuri....
+                    category: category
                     location:
                       longitude: '-75.16'
                       latitude: '39.98'
+                      address: address will be here
                     host:
+                      profile: imageuri...
                       name: John Smith
                       email: johnsmith1@gmail.com
-                  - title: Party 2
+                  - event: '3'
+                    title: Party 3
                     description: Come party yall
-                    date: null
+                    date: date
+                    image: imageuri....
+                    category: category
                     location:
                       longitude: '-75.16'
                       latitude: '39.98'
+                      address: address will be here
                     host:
-                      name: John Smith
-                      email: johnsmith12@gmail.com
-                  - title: Party 3
-                    description: Come party yall
-                    date: null
-                    location:
-                      longitude: '-75.16'
-                      latitude: '39.98'
-                    host:
-                      name: John Smith
-                      email: johnsmith12@gmail.com
+                      profile: imageuri...
+                      name: James Smith
+                      email: jamessmith1@gmail.com
         description: ''
       parameters: []
     parameters: []
-  api/v1/host/events:
+  'api/v1/host/events/{event_id...}':
     get:
-      summary: Get Host Events
+      summary: Get the events that the host is hosting
       tags: []
       responses:
         '200':
@@ -66,33 +67,48 @@ paths:
               examples:
                 Example Response:
                   value:
-                    - title: Party 2
+                    - event: '2'
+                      title: Party 2
                       description: Come party yall
-                      date: null
+                      date: date
+                      image: imageuri....
+                      category: category
                       location:
                         longitude: '-75.16'
                         latitude: '39.98'
+                        address: address will be here
                       host:
+                        profile: imageuri...
                         name: John Smith
                         email: johnsmith1@gmail.com
-                    - title: Party 2
+                    - event: '3'
+                      title: Party 3
                       description: Come party yall
-                      date: null
+                      date: date
+                      image: imageuri....
+                      category: category
                       location:
                         longitude: '-75.16'
                         latitude: '39.98'
+                        address: address will be here
                       host:
+                        profile: imageuri...
                         name: John Smith
-                        email: johnsmith12@gmail.com
-                    - title: Party 3
+                        email: johnsmith1@gmail.com
+                    - event: '4'
+                      title: Party 4
                       description: Come party yall
-                      date: null
+                      date: date
+                      image: imageuri....
+                      category: category
                       location:
                         longitude: '-75.16'
                         latitude: '39.98'
+                        address: address will be here
                       host:
+                        profile: imageuri...
                         name: John Smith
-                        email: johnsmith12@gmail.com
+                        email: johnsmith1@gmail.com
         '':
           description: |-
             [
@@ -137,12 +153,263 @@ paths:
               }
             ]
       operationId: 'get-https:-gigservice.herokuapp.com-api-v1-host-events'
-      description: Get all the events that the host is hosting
+      description: "Get all the events that the host is hosting. To hit this endpoint you just need the auth token. You don't need to give the event id. "
       parameters:
         - schema:
             type: string
           in: query
-          name: 'auth_token="djshjdhajkha"'
+          name: 'auth_token="token goes here"'
+          required: true
+    parameters:
+      - schema:
+          type: string
+        name: event_id...
+        in: path
+        required: true
+    post:
+      summary: Host creates an event
+      operationId: postapi-v1-host-events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Response Example:
+                  value:
+                    event: '2'
+                    title: Partyy
+                    description: Come party yall
+                    date: date
+                    image: imageuri....
+                    category: category
+                    location:
+                      longitude: '-75.16'
+                      latitude: '39.98'
+                      address: address will be here
+                    host:
+                      profile: imageuri...
+                      name: John Smith
+                      email: johnsmith1@gmail.com
+      description: "Create an event for a host. You need to provide an auth token and don't need to provide the event id as it is automatically created. "
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="token goes here"'
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Body Example:
+                value:
+                  title: Partyy
+                  description: Come party yall
+                  date: date
+                  category: category
+                  image: imageuri....
+                  latitude: '39.98'
+                  longitude: '-75.1600'
+    put:
+      summary: Edit a existing hosted event
+      operationId: putapi-v1-host-events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Response Example:
+                  value:
+                    event: '2'
+                    title: Partyy
+                    description: Come party yall
+                    date: date
+                    image: imageuri....
+                    category: category
+                    location:
+                      longitude: '-75.16'
+                      latitude: '39.98'
+                      address: address will be here
+                    host:
+                      profile: imageuri...
+                      name: John Smith
+                      email: johnsmith1@gmail.com
+      description: "Allows you to update a host's event. You need to provide three things, an auth token, the event id which you append to the url, and the updated event structure. "
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="token goes here"'
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Body Example:
+                value:
+                  title: Partyy
+                  description: Come party yall
+                  date: date
+                  category: category
+                  image: imageuri....
+                  latitude: '39.98'
+                  longitude: '-75.1600'
+    delete:
+      summary: Delete a hosted event
+      operationId: deleteapi-v1-host-events-event_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Response Example:
+                  value:
+                    status: Successful Deletion
+      description: 'This endpoint allows you to delete a hosted event. You need to provide two things an auth token to verify you are the person hosting this event, the event id which you append to the url. '
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="token goes here"'
+  /api/v1/host/saved_events:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Response Example:
+                  value:
+                    - event: '2'
+                      title: Party 2
+                      description: Come party yall
+                      date: date
+                      image: imageuri....
+                      category: category
+                      location:
+                        longitude: '-75.16'
+                        latitude: '39.98'
+                        address: address will be here
+                      host:
+                        profile: imageuri...
+                        name: John Smith
+                        email: johnsmith1@gmail.com
+                    - event: '3'
+                      title: Party 3
+                      description: Come party yall
+                      date: date
+                      image: imageuri....
+                      category: category
+                      location:
+                        longitude: '-75.16'
+                        latitude: '39.98'
+                        address: address will be here
+                      host:
+                        profile: imageuri...
+                        name: John Smith
+                        email: johnsmith1@gmail.com
+                    - event: '4'
+                      title: Party 4
+                      description: Come party yall
+                      date: date
+                      image: imageuri....
+                      category: category
+                      location:
+                        longitude: '-75.16'
+                        latitude: '39.98'
+                        address: address will be here
+                      host:
+                        profile: imageuri...
+                        name: John Smith
+                        email: johnsmith1@gmail.com
+      operationId: get-api-v1-host-save_event
+      description: This endpoint allows you to retrieve all the saved events for a host. You just need to provide auth token and hit correct url
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="token goes here"'
+          required: true
     parameters: []
+  /api/v1/host/save_event:
+    post:
+      summary: ''
+      operationId: post-api-v1-host-save_event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example Response:
+                  value:
+                    status: success
+      description: 'This endpoint allows you to save a event for a host. You just need to provide two things: auth token and pass the event id through query params. '
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="token goes here"'
+        - schema:
+            type: string
+          in: query
+          name: 'event="event id goes here"'
+  /api/v1/host/profiles:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example Response:
+                  value:
+                    profileImage: https//....
+      operationId: get-api-v1-host-profiles
+      description: "Get a host's profile image"
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="token goes here..."'
+    post:
+      summary: ''
+      operationId: post-api-v1-host-profiles
+      responses:
+        '200':
+          description: OK
+      description: 'Allows you to update a profile image. This is more tricky. Contact me for info. '
 components:
   schemas: {}
