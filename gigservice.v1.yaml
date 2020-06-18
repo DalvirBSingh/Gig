@@ -54,7 +54,7 @@ paths:
     parameters: []
   'api/v1/host/events/{event_id...}':
     get:
-      summary: Get the events that the host is hosting
+      summary: "A host's events"
       tags: []
       responses:
         '200':
@@ -291,7 +291,7 @@ paths:
           name: 'auth_token="token goes here"'
   /api/v1/host/saved_events:
     get:
-      summary: Your GET endpoint
+      summary: "Get a host's saved events"
       tags: []
       responses:
         '200':
@@ -357,7 +357,7 @@ paths:
     parameters: []
   /api/v1/host/save_event:
     post:
-      summary: ''
+      summary: Save a event for a host
       operationId: post-api-v1-host-save_event
       responses:
         '200':
@@ -383,7 +383,7 @@ paths:
           name: 'event="event id goes here"'
   /api/v1/host/profiles:
     get:
-      summary: Your GET endpoint
+      summary: Profile Image
       tags: []
       responses:
         '200':
