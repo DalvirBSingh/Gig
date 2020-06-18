@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Gig micro serv
+  version: '1.0'
+servers:
+  - url: '/https://gigservice.herokuapp.com/'
+paths:
+  api/v1/events:
+    get:
+      summary: Events
+      tags: []
+      responses: {}
+      operationId: 'get-https:-gigservice.herokuapp.com-api-v1-events'
+      description: Allows you get all the events that are being hosted
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Response Example:
+                value:
+                  - title: Party 2
+                    description: Come party yall
+                    date: null
+                    location:
+                      longitude: '-75.16'
+                      latitude: '39.98'
+                    host:
+                      name: John Smith
+                      email: johnsmith1@gmail.com
+                  - title: Party 2
+                    description: Come party yall
+                    date: null
+                    location:
+                      longitude: '-75.16'
+                      latitude: '39.98'
+                    host:
+                      name: John Smith
+                      email: johnsmith12@gmail.com
+                  - title: Party 3
+                    description: Come party yall
+                    date: null
+                    location:
+                      longitude: '-75.16'
+                      latitude: '39.98'
+                    host:
+                      name: John Smith
+                      email: johnsmith12@gmail.com
+        description: ''
+      parameters: []
+    parameters: []
+  api/v1/host/events:
+    get:
+      summary: Get Host Events
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example Response:
+                  value:
+                    - title: Party 2
+                      description: Come party yall
+                      date: null
+                      location:
+                        longitude: '-75.16'
+                        latitude: '39.98'
+                      host:
+                        name: John Smith
+                        email: johnsmith1@gmail.com
+                    - title: Party 2
+                      description: Come party yall
+                      date: null
+                      location:
+                        longitude: '-75.16'
+                        latitude: '39.98'
+                      host:
+                        name: John Smith
+                        email: johnsmith12@gmail.com
+                    - title: Party 3
+                      description: Come party yall
+                      date: null
+                      location:
+                        longitude: '-75.16'
+                        latitude: '39.98'
+                      host:
+                        name: John Smith
+                        email: johnsmith12@gmail.com
+        '':
+          description: |-
+            [
+              {
+                "title": "Party 2",
+                "description": "Come party yall",
+                "date": null,
+                "location": {
+                  "longitude": "-75.16",
+                  "latitude": "39.98"
+                },
+                "host": {
+                  "name": "John Smith",
+                  "email": "johnsmith1@gmail.com"
+                }
+              },
+              {
+                "title": "Party 2",
+                "description": "Come party yall",
+                "date": null,
+                "location": {
+                  "longitude": "-75.16",
+                  "latitude": "39.98"
+                },
+                "host": {
+                  "name": "John Smith",
+                  "email": "johnsmith12@gmail.com"
+                }
+              },
+              {
+                "title": "Party 3",
+                "description": "Come party yall",
+                "date": null,
+                "location": {
+                  "longitude": "-75.16",
+                  "latitude": "39.98"
+                },
+                "host": {
+                  "name": "John Smith",
+                  "email": "johnsmith12@gmail.com"
+                }
+              }
+            ]
+      operationId: 'get-https:-gigservice.herokuapp.com-api-v1-host-events'
+      description: Get all the events that the host is hosting
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: 'auth_token="djshjdhajkha"'
+    parameters: []
+components:
+  schemas: {}

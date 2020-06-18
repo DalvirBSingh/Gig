@@ -1,0 +1,245 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "gig-authentication-service",
+    "version": "1.0",
+    "description": "This service is used for handling authentication in our gig tracker app"
+  },
+  "servers": [
+    {
+      "url": "https://gig-authentication-service.herokuapp.com/"
+    }
+  ],
+  "paths": {
+    "api/v1/hosts": {
+      "parameters": [],
+      "post": {
+        "summary": "",
+        "operationId": "postapi-v1-hosts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "Example-Response": {
+                    "value": {
+                      "data": {
+                        "host": {
+                          "name": "John Smith",
+                          "email": "johnsth@gmail.com"
+                        },
+                        "authorization": {
+                          "auth_token": {
+                            "token": "eyJhbUzI1NiJ9.eyJoboxMDcsImV4cCIQ5NjIwNX0.0K4BRgb2-Nw7Y2FneVyPLLyU",
+                            "expires": "2020-06-06T22:16:45.573-04:00"
+                          },
+                          "refresh_token": {
+                            "token": "eyJhbGciNiJ9.eyJob3N0X2lkImV4cCI6MTU5OTQ0MTQwNSwicmVmcmVzaCI6dHJ1ZX0.3wB0JJZlojSVQpatiI20aIPTShU8gUY",
+                            "expires": "2020-09-06T21:16:45.574-04:00"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This endpoint is used for creating a host for our gig tracker app. Hitting this endpoint, you will get two tokens back, one is a Auth token which will be needed to communicate with the resource service which handles events and other stuff. The auth token expires after a few hours, so the app will continously need to get a renewed auth token. To get the renewed token, you need to pass the initial refresh token you received. The other token you get back is a refresh token which will be needed to communicate with this service.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Example-Body": {
+                  "value": {
+                    "name": "John Smith",
+                    "email": "johnsth@gmail.com",
+                    "password": "FakeJohn",
+                    "password_confirmation": "FakeJohn"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "operationId": "deleteapi-v1-hosts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "Response": {
+                    "value": {
+                      "success": "User Deleted"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This endpoint deletes a host in our database. Will need to pass in refresh token params. ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "refresh_token",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/api/v1/hosts/sign_in": {
+      "post": {
+        "summary": "",
+        "operationId": "post-api-v1-hosts-sign_in",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "Example-Response": {
+                    "value": {
+                      "data": {
+                        "host": {
+                          "name": "John Smith",
+                          "email": "johnsth@gmail.com"
+                        },
+                        "authorization": {
+                          "auth_token": {
+                            "token": "eyJhzI1NiJ9.eyJob3NDcsImV4cCI6MTU5MTM30.WmmOKRQtgbhowrQzlKZoCy0",
+                            "expires": "2020-06-06T22:44:33.097-04:00"
+                          },
+                          "refresh_token": {
+                            "token": "eyJhbGI1NiJ9.eyJob3N0X4cCI6MTU5OTQ0MzA3MywicmVmcmVzaCI6dHJ1ZX0.Z8npadrpu5fNFTfk8mLAOSF6rNgytQE",
+                            "expires": "2020-09-06T21:44:33.098-04:00"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This endpoint is used for allowing a host to sign in. This endpoint returns a two JWT tokens, one is a auth token and the other is a refresh token. You will need the auth token to access the resource service and the refresh token will be needed to communicate with this service. The refresh token will allow a user to remain logged in. ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Example-body": {
+                  "value": {
+                    "email": "johnsth@gmail.com",
+                    "password": "FakeJohn"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/refresh": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "Example-Response": {
+                    "value": {
+                      "data": {
+                        "authorization": {
+                          "auth_token": {
+                            "token": "eyJhbI1NiJ9.eyJob3N0X2lkTU5MTQ5Nzk4M30.fCO4eGGTcOaR9lXKMxHk9-Lav5zfRUJrZLU",
+                            "expires": "2020-06-06T22:46:23.241-04:00"
+                          },
+                          "refresh_token": {
+                            "token": "eyJhbGzI1NiJ9.eyJob3N0X2lI6MTU5OTQ0MzE4MywidHJ1ZX0.8vZvrqcp22KdFl-V2rF3xITab9vNW9KQME",
+                            "expires": "2020-09-06T21:46:23.242-04:00"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-v1-refresh",
+        "description": "This endpoint is used to get a new auth token when the one your application is using to communicate with the resource service expires. ",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "refresh_token",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {}
+            }
+          },
+          "description": ""
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}
